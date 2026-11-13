@@ -8,6 +8,7 @@ import {
   appendMessage,
   escalateConversation,
 } from "./conversation/store";
+import { testChatRouter } from "./testChatRouter";
 
 const app = express();
 
@@ -58,6 +59,10 @@ registerWebhookHandler(handleIncomingMessage);
 app.use(metaWebhookRouter);
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
+
+// Chat de prueba publico, para probar el bot sin WhatsApp (ver testChatRouter.ts).
+// No expone secretos; solo conversa usando el mismo motor del bot real.
+app.use("/test", testChatRouter);
 
 app.listen(config.port, () => {
   console.log(`Agente de Cleen escuchando en el puerto ${config.port}`);
