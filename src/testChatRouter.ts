@@ -63,7 +63,8 @@ testChatRouter.get("/", (_req, res) => {
         input.value = "";
         sendBtn.disabled = true;
         try {
-          const resp = await fetch("chat", {
+          const chatUrl = window.location.pathname.replace(/\\/$/, "") + "/chat";
+          const resp = await fetch(chatUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ history, message: text }),
